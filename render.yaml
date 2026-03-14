@@ -1,12 +1,12 @@
 services:
+  # The Python Backend (FastAPI + Groq)
   - type: web
-    name: ritual-backend
-    plan: free
+    name: ritual-knowledge-backend
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GROQ_API_KEY
-        sync: false # Set this manually in Render dashboard
+        sync: false
       - key: GROQ_MODEL
         value: llama-3.3-70b-versatile
