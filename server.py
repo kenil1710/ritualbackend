@@ -2,10 +2,10 @@ import contextlib
 import chromadb
 from sentence_transformers import SentenceTransformer
 from groq import Groq
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
+from typing import List, Optional
 from chatbot import (
     get_answer,
     load_and_ingest_knowledge,
@@ -14,6 +14,10 @@ from chatbot import (
     GROQ_API_KEY,
     MAX_QUERY_LENGTH,
 )
+import os
+
+# --- FastAPI Setup ---
+# Note: initialized below with lifespan
 
 # --- Request / Response schemas ---
 
@@ -108,3 +112,9 @@ async def chat(request: ChatRequest):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+if __name__ == "__main__":
+    import uvicorn
+    # Respect the PORT environment variable for deployment (Render/Heroku/etc)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run("server:app", host="0.0.0.0", port=port, reload=True)
