@@ -47,7 +47,7 @@ async def lifespan(app: FastAPI):
     print("Loading embedding model...")
     embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
 
-    print("Connecting to ChromaDB...")
+    print("Connectinfg to ChromaDB...")
     chroma_client = chromadb.PersistentClient(path=CHROMA_DB_DIR)
 
     # Re-create the collection to ensure fresh data on every startup
