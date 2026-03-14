@@ -1,6 +1,5 @@
 fastapi
 uvicorn
 groq
-sentence-transformers
-chromadb
+rank-bm25
 python-dotenv
